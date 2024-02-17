@@ -1,11 +1,14 @@
 class DbAccess {
-    async readOne(Model, conditions) {
+    async readOne(Model, conditions, include) {
         return await Model.findOne({
+            include: include,
             where: conditions
         })
     }
-    async readAll(Model, conditions) {
+    async readAll(Model, conditions, include) {
+        console.log(Model, conditions, include)
         return await Model.findAll({
+            include: include,
             where: conditions
         })
     }

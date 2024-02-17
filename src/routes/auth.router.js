@@ -2,7 +2,10 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 const authController = require('../controllers/auth.controller')
-
+const {
+  registerValidation,
+  loginValidation
+} = require('../utils/validations')
 router.get('/', async function (req, res, next) {
   const sessionID = req.sessionID
   res.send(sessionID)
@@ -10,7 +13,7 @@ router.get('/', async function (req, res, next) {
 router.get('/signup', (req, res, next) => {
   res.render('signup')
 })
-router.post('/signup', authController.signup)
+router.post('/signup', registerValidation, authController.signup)
 /**
  * @swagger 
  * /api/auth/login:
@@ -35,7 +38,7 @@ router.post('/signup', authController.signup)
 router.get('/login', (req, res) => {
   res.render('login')
 })
-router.post('/login/password', passport.authenticate('local', {
+router.post('/login/password', loginValidation, passport.authenticate('local', {
   successReturnToOrRedirect: '/api/auth/',
   failureRedirect: '/api/auth/login',
   failureMessage: true

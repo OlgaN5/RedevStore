@@ -20,6 +20,11 @@ module.exports = db.define('order', {
             key: 'id'
         }
     },
+    count:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: false
+    },
     deliverStatus: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -28,7 +33,7 @@ module.exports = db.define('order', {
     statusId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        unique: true,
+        unique: false,
         references: {
             model: Status,
             key: 'id'
@@ -37,7 +42,7 @@ module.exports = db.define('order', {
     userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        unique: true,
+        unique: false,
         references: {
             model: User,
             key: 'id'

@@ -1,19 +1,19 @@
 const express = require('express')
 const router = express.Router()
-const statusController = require('../controllers/status.controller')
-const isAuthenticate = require('../utils/authenticate')
+const cartController = require('../controllers/cart.controller')
+const isAuthenticated = require('../utils/authenticate')
 const {
     idValidation,
-    statusCreateValidation,
-    statusEditValidation
+    cartCreateValidation,
+    cartEditValidation
 } = require('../utils/validations')
 
 /**
  * @swagger 
- * /api/status/add:
+ * /api/cart/create:
  *   post:
  *     tags: 
- *       - Status
+ *       - Cart
  *     summary: use to edit user
  *     description: takes data to uptate, changes user in db
  *     security:
@@ -25,11 +25,15 @@ const {
  *         application/json:
  *           schema:
  *             required: 
- *               - name
+ *               - productId
+ *               - count
  *             type: object
  *             properties:
- *               name:
- *                 type: string
+ *               productId:
+ *                 type: number
+ *                 default: name
+ *               count:
+ *                 tupe: number
  *                 default: name
  *     responses: 
  *       '200':
@@ -43,21 +47,22 @@ const {
  *                   type: integer
  *                   default: token added
  */
-router.post('/add', isAuthenticate(['admin', 'moderator']), statusCreateValidation, statusController.createStatus)
+router.post('/create', isAuthenticated(['user']), cartCreateValidation, cartController.createCart)
 /**
  * @swagger 
- * /api/status/edit/{id}:
+ * /api/cart/edit/{id}:
  *   patch:
  *     tags: 
- *       - Status
+ *       - Cart
  *     summary: use to edit user
  *     description: takes data to uptate, changes user in db
  *     security:
  *       - cookieAuth: []
  *     parameters:
  *       - name: id
- *         required: true
+ *         default: 1
  *         in: path
+ *         required: true
  *     requestBody:
  *       description: token
  *       required: true
@@ -65,11 +70,15 @@ router.post('/add', isAuthenticate(['admin', 'moderator']), statusCreateValidati
  *         application/json:
  *           schema:
  *             required: 
- *               - name
+ *               - productId
+ *               - count
  *             type: object
  *             properties:
- *               name:
- *                 type: string
+ *               productId:
+ *                 type: number
+ *                 default: name
+ *               count:
+ *                 tupe: number
  *                 default: name
  *     responses: 
  *       '200':
@@ -83,21 +92,22 @@ router.post('/add', isAuthenticate(['admin', 'moderator']), statusCreateValidati
  *                   type: integer
  *                   default: token added
  */
-router.patch('/edit/:id', isAuthenticate(['admin', 'moderator']), statusEditValidation, statusController.editStatus)
+router.patch('/edit', isAuthenticated(['user']), cartEditValidation, cartController.editCart)
 /**
  * @swagger 
- * /api/status/delete/{id}:
+ * /api/cart/delete:
  *   delete:
  *     tags: 
- *       - Status
+ *       - Cart
  *     summary: use to edit user
  *     description: takes data to uptate, changes user in db
  *     security:
  *       - cookieAuth: []
  *     parameters:
  *       - name: id
- *         required: true
+ *         default: 1
  *         in: path
+ *         required: true
  *     responses: 
  *       '200':
  *         descrition: query has saved succesfull
@@ -110,6 +120,6 @@ router.patch('/edit/:id', isAuthenticate(['admin', 'moderator']), statusEditVali
  *                   type: integer
  *                   default: token added
  */
-router.delete('/delete/:id', isAuthenticate(['admin', 'moderator']), idValidation, statusController.deleteStatus)
+router.delete('/delete', isAuthenticated(['user']), idValidation, cartController.deleteCart)
 
 module.exports = router

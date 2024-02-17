@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>RedevStore</title>
+	</head>
+	<body>
+		<section class="prompt">
+			<h1>Customer</h1>
+				<form action="/api/payment/create-customer" method="post">
+				<section>
+					<label for="amount">amount</label>
+					<input id="amount" name="amount" type="number" autocomplete="amount" required autofocus>
+				</section>
+				<section>s
+					<label for="currency">currency</label>
+					<input id="currency" name="cardNumber" type="text" autocomplete="currency" required autofocus>
+				</section>
+				<section>
+					<label for="cardId">cardId</label>
+					<input id="cardId" name="cardId" type="text" autocomplete="cardId" required autofocus>
+				</section>
+				<section>
+					<label for="customerId">customerId</label>
+					<input id="customerId" name="customerId" type="text" autocomplete="customerId" required autofocus>
+				</section>
+				<button type="submit">add</button>
+			</form>
+		</section>
+	</body>
+</html>

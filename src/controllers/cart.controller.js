@@ -1,13 +1,17 @@
-const categoryService = require('../services/category.service')
-
-class CategoryController {
-    async createCategory(req, res) {
+const cartService = require('../services/cart.service')
+const {
+    validationResult
+} = require('express-validator')
+class CartController {
+    async createCart(req, res) {
         try {
             const result = validationResult(req)
             if (result.isEmpty()) {
-                console.log(req.body)
-                const result = await categoryService.createCategory(req.body)
-                res.send(result)
+                const cart = await cartService.createCart({
+                    ...req.body,
+                    userId: req.session.passport.user.id
+                })
+                res.send(cart)
             } else {
                 res.send({
                     error: result.array()
@@ -17,13 +21,14 @@ class CategoryController {
             res.send(e.message)
         }
     }
-    async editCategory(req, res) {
+    async editCart(req, res) {
         try {
             const result = validationResult(req)
             if (result.isEmpty()) {
-                console.log(req.body)
-                const result = await categoryService.editCategory(req.body, req.params.id)
-                res.send(result)
+                const cart = await cartService.editCart(req.body, {
+                    id: req.params.id
+                })
+                res.send(cart)
             } else {
                 res.send({
                     error: result.array()
@@ -33,12 +38,13 @@ class CategoryController {
             res.send(e.message)
         }
     }
-    async deleteCategory(req, res) {
+    async deleteCart(req, res) {
         try {
             const result = validationResult(req)
             if (result.isEmpty()) {
-                console.log(req.body)
-                const result = await categoryService.deleteCategory(req.params.id)
+                const result = await cartService.deleteCart({
+                    id: req.params.id
+                })
                 res.send({
                     countDeleted: result
                 })
@@ -53,4 +59,4 @@ class CategoryController {
     }
 }
 
-module.exports = new CategoryController()
+module.exports = new CartController()

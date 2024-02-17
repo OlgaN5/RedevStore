@@ -2,6 +2,14 @@ const express = require('express')
 const router = express.Router()
 const categoryController = require('../controllers/category.controller')
 const isAuthenticated = require('../utils/authenticate')
+const {
+    idValidation,
+    categoryCreateValidation,
+    cartEditValidation
+} = require('../utils/validations')
+router.get('/get')
+router.get('/getProducts')
+
 /**
  * @swagger 
  * /api/category/add:
@@ -40,12 +48,11 @@ const isAuthenticated = require('../utils/authenticate')
  *                   type: integer
  *                   default: token added
  */
-
-router.post('/add', isAuthenticated(['admin', 'moderator']), categoryController.createCategory)
+router.post('/add', isAuthenticated(['admin', 'moderator']), categoryCreateValidation, categoryController.createCategory)
 /**
  * @swagger 
  * /api/category/edit/{id}:
- *   post:
+ *   patch:
  *     tags: 
  *       - Category
  *     security:
@@ -83,11 +90,11 @@ router.post('/add', isAuthenticated(['admin', 'moderator']), categoryController.
  *                   default: token added
  */
 
-router.post('/edit/:id', isAuthenticated(['admin', 'moderator']), categoryController.editCategory)
+router.patch('/edit/:id', isAuthenticated(['admin', 'moderator']), cartEditValidation, categoryController.editCategory)
 /**
  * @swagger 
  * /api/category/delete/{id}:
- *   post:
+ *   delete:
  *     tags: 
  *       - Category
  *     security:
@@ -110,6 +117,6 @@ router.post('/edit/:id', isAuthenticated(['admin', 'moderator']), categoryContro
  *                   type: integer
  *                   default: token added
  */
-router.post('/delete/:id', isAuthenticated(['admin', 'moderator']), categoryController.deleteCategory)
+router.delete('/delete/:id', isAuthenticated(['admin', 'moderator']), idValidation, categoryController.deleteCategory)
 
 module.exports = router

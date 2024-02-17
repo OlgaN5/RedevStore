@@ -3,7 +3,7 @@ const Image = require('./image.model')
 const Product = require('./product.model')
 const Status = require('./status.model')
 const Order = require('./order.model')
-
+const CategoryProduct = require('./categoryProduct.model')
 const Cart = require('./cart.model')
 
 const Category = require('./category.model')
@@ -33,11 +33,11 @@ Order.belongsTo(User, {
     foreignKey: 'userId'
 })
 
-Category.hasOne(Product, {
-    foreignKey: 'categoryId'
+Category.belongsToMany(Product, {
+    through: 'categoryProducts'
 })
-Product.belongsTo(Category, {
-    foreignKey: 'categoryId'
+Product.belongsToMany(Category, {
+    through: 'categoryProducts'
 })
 
 Product.hasMany(Order, {
@@ -47,11 +47,11 @@ Order.belongsTo(Product, {
     foreignKey: 'productId'
 })
 
-Image.hasMany(Product, {
-    foreignKey: 'imageId'
+Product.hasMany(Image, {
+    foreignKey: 'productId'
 })
-Product.belongsTo(Image, {
-    foreignKey: 'imageId'
+Image.belongsTo(Product, {
+    foreignKey: 'productId'
 })
 
 Status.hasMany(Order, {
@@ -62,6 +62,7 @@ Order.belongsTo(Status, {
 })
 
 module.exports = {
+    CategoryProduct,
     Product,
     Status,
     Order,

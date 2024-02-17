@@ -1,5 +1,8 @@
 const multer = require('multer')
 const path = require('path')
+const {
+    v1
+} = require('uuid')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -7,7 +10,7 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
         // console.log(req)
-        cb(null, file.originalname)
+        cb(null, v1() + file.originalname)
     },
 })
 

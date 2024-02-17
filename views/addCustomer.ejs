@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>RedevStore</title>
+	</head>
+	<body>
+		<section class="prompt">
+			<h1>Customer</h1>
+				<form action="/api/payment/create-customer" method="post">
+				<section>
+					<label for="name">name</label>
+					<input id="name" name="name" type="text" autocomplete="name" required autofocus>
+				</section>
+				<section>
+					<label for="email">email</label>
+					<input id="email" name="email" type="text" autocomplete="emai" required autofocus>
+				</section>
+				<button type="submit">add</button>
+			</form>
+		</section>
+	</body>
+</html>

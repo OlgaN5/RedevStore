@@ -19,24 +19,24 @@ module.exports = db.define('product', {
         allowNull: false,
         unique: false
     },
-    categoryId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        unique: false,
-        references: {
-            model: Category,
-            key: 'id'
-        }
-    },
-    imageId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        unique: false,
-        references: {
-            model: Image,
-            key: 'id'
-        }
-    },
+    // categoryId: {
+    //     type: Sequelize.INTEGER,
+    //     allowNull: false,
+    //     unique: false,
+    //     references: {
+    //         model: Category,
+    //         key: 'id'
+    //     }
+    // },
+    // imageId: {
+    //     type: Sequelize.INTEGER,
+    //     allowNull: true,
+    //     unique: false,
+    //     references: {
+    //         model: Image,
+    //         key: 'id'
+    //     }
+    // },
     price: {
         type: Sequelize.INTEGER,
         allowNull: false,

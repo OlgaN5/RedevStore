@@ -3,6 +3,9 @@ const {
     Category
 } = require('../models/assotiations')
 class CategoryService {
+    async findCategory(conditions) {
+        return await dbAccess.readOne(Category, conditions)
+    }
     async createCategory(data) {
         return await dbAccess.create(Category, data)
     }

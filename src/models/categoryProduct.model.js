@@ -1,22 +1,13 @@
-const Sequelize = require('sequelize')
 const db = require('../config/database.config')
+const Sequelize = require('sequelize')
+const Category = require('./category.model')
 const Product = require('./product.model')
-module.exports = db.define('image', {
+module.exports = db.define('categoryProduct', {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
-    },
-    host: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: false
-    },
-    path: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: false
     },
     productId: {
         type: Sequelize.INTEGER,
@@ -26,6 +17,14 @@ module.exports = db.define('image', {
             model: Product,
             key: 'id'
         }
-
-    }
+    },
+    categoryId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: false,
+        references: {
+            model: Category,
+            key: 'id'
+        }
+    },
 })
