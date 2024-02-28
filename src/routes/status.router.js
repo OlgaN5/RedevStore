@@ -7,7 +7,8 @@ const {
     statusCreateValidation,
     statusEditValidation
 } = require('../utils/validations')
-
+const validationHandler = require('../utils/validationHandler')
+const tryCatchHandler = require('../controllers/tryCatch.handler')
 /**
  * @swagger 
  * /api/status/add:
@@ -43,7 +44,7 @@ const {
  *                   type: integer
  *                   default: token added
  */
-router.post('/add', isAuthenticate(['admin', 'moderator']), statusCreateValidation, statusController.createStatus)
+router.post('/add', isAuthenticate(['admin', 'moderator']), statusCreateValidation, validationHandler, tryCatchHandler(statusController.createStatus))
 /**
  * @swagger 
  * /api/status/edit/{id}:
@@ -83,7 +84,7 @@ router.post('/add', isAuthenticate(['admin', 'moderator']), statusCreateValidati
  *                   type: integer
  *                   default: token added
  */
-router.patch('/edit/:id', isAuthenticate(['admin', 'moderator']), statusEditValidation, statusController.editStatus)
+router.patch('/edit/:id', isAuthenticate(['admin', 'moderator']), statusEditValidation, validationHandler, tryCatchHandler(statusController.editStatus))
 /**
  * @swagger 
  * /api/status/delete/{id}:
@@ -110,6 +111,6 @@ router.patch('/edit/:id', isAuthenticate(['admin', 'moderator']), statusEditVali
  *                   type: integer
  *                   default: token added
  */
-router.delete('/delete/:id', isAuthenticate(['admin', 'moderator']), idValidation, statusController.deleteStatus)
+router.delete('/delete/:id', isAuthenticate(['admin', 'moderator']), idValidation, validationHandler, tryCatchHandler(statusController.deleteStatus))
 
 module.exports = router

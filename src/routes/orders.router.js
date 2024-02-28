@@ -8,6 +8,9 @@ const {
     orderEditValidation,
     orderCreateUserValidation
 } = require('../utils/validations')
+const validationHandler = require('../utils/validationHandler')
+const tryCatchHandler = require('../controllers/tryCatch.handler')
+
 /**
  * @swagger 
  * /api/user/order/getOrders:
@@ -28,7 +31,7 @@ const {
  *                   type: integer
  *                   default: token added
  */
-router.get('/getOrders', isAuthenticated(['user']), orderController.getOrders)
+router.get('/getOrders', isAuthenticated(['user']), tryCatchHandler(orderController.getOrders))
 
 /**
  * @swagger 
@@ -55,7 +58,7 @@ router.get('/getOrders', isAuthenticated(['user']), orderController.getOrders)
  *                   type: integer
  *                   default: token added
  */
-router.get('/:id', isAuthenticated(['moderator', 'user', 'admin']), idValidation, orderController.getOrder)
+router.get('/:id', isAuthenticated(['moderator', 'user', 'admin']), idValidation, validationHandler, tryCatchHandler(orderController.getOrder))
 
 /**
  * @swagger 
@@ -82,7 +85,7 @@ router.get('/:id', isAuthenticated(['moderator', 'user', 'admin']), idValidation
  *                   type: integer
  *                   default: token added
  */
-router.get('/getUserOrders/:id', isAuthenticated(['moderator', 'admin']), idValidation, orderController.getOrders) //moder
+router.get('/getUserOrders/:id', isAuthenticated(['moderator', 'admin']), idValidation, validationHandler, tryCatchHandler(orderController.getOrders)) //moder
 
 /**
  * @swagger 
@@ -128,7 +131,7 @@ router.get('/getUserOrders/:id', isAuthenticated(['moderator', 'admin']), idVali
  *                   type: integer
  *                   default: token added
  */
-router.post('/add', isAuthenticated(['user']), orderCreateUserValidation, orderController.createOrder)
+router.post('/add', isAuthenticated(['user']), orderCreateUserValidation, validationHandler, tryCatchHandler(orderController.createOrder))
 /**
  * @swagger 
  * /api/user/order/add/{id}:
@@ -178,7 +181,7 @@ router.post('/add', isAuthenticated(['user']), orderCreateUserValidation, orderC
  *                   type: integer
  *                   default: token added
  */
-router.post('/add/:id', isAuthenticated(['moderator', 'admin']), orderCreateModeratorValidation, orderController.createOrder) //moder
+router.post('/add/:id', isAuthenticated(['moderator', 'admin']), orderCreateModeratorValidation, validationHandler, tryCatchHandler(orderController.createOrder)) //moder
 
 /**
  * @swagger 
@@ -225,7 +228,7 @@ router.post('/add/:id', isAuthenticated(['moderator', 'admin']), orderCreateMode
  *                   type: integer
  *                   default: token added
  */
-router.patch('/edit/:id', isAuthenticated(['moderator', 'user', 'admin']), orderEditValidation, orderController.editOrder)
+router.patch('/edit/:id', isAuthenticated(['moderator', 'user', 'admin']), orderEditValidation, validationHandler, tryCatchHandler(orderController.editOrder))
 /**
  * @swagger 
  * /api/user/order/delete/{id}:
@@ -251,7 +254,7 @@ router.patch('/edit/:id', isAuthenticated(['moderator', 'user', 'admin']), order
  *                   type: integer
  *                   default: token added
  */
-router.delete('/delete/:id', isAuthenticated(['moderator', 'user', 'admin']), idValidation, orderController.deleteOrder)
+router.delete('/delete/:id', isAuthenticated(['moderator', 'user', 'admin']), idValidation, validationHandler, tryCatchHandler(orderController.deleteOrder))
 
 
 

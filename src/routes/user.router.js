@@ -6,6 +6,8 @@ const {
     userEditUserValidation,
     userEditModeratorValidation
 } = require('../utils/validations')
+const tryCatchHandler = require('../controllers/tryCatch.handler')
+const validationHandler = require('../utils/validationHandler')
 /**
  * @swagger 
  * /api/user/edit:
@@ -43,7 +45,7 @@ const {
  *                   type: integer
  *                   default: token added
  */
-router.patch('/edit', isAuthenticated(['user', 'moderator', 'admin']), userEditUserValidation, userController.editUser) //add or change pass,change email/first name/last name
+router.patch('/edit', isAuthenticated(['user', 'moderator', 'admin']), userEditUserValidation, validationHandler, tryCatchHandler(userController.editUser)) //add or change pass,change email/first name/last name
 
 /**
  * @swagger 
@@ -83,7 +85,7 @@ router.patch('/edit', isAuthenticated(['user', 'moderator', 'admin']), userEditU
  *                   type: integer
  *                   default: token added
  */
-router.patch('/edit/:id', isAuthenticated(['moderator', 'admin']), userEditModeratorValidation, userController.editUser)
+router.patch('/edit/:id', isAuthenticated(['moderator', 'admin']), userEditModeratorValidation, validationHandler, tryCatchHandler(userController.editUser))
 
 
 module.exports = router

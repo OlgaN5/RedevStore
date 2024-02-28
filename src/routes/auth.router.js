@@ -6,14 +6,18 @@ const {
   registerValidation,
   loginValidation
 } = require('../utils/validations')
+const validationHandler = require('../utils/validationHandler')
+const tryCatchHandler = require('../controllers/tryCatch.handler')
+
 router.get('/', async function (req, res, next) {
+  // console.log()
   const sessionID = req.sessionID
   res.send(sessionID)
 })
 router.get('/signup', (req, res, next) => {
   res.render('signup')
 })
-router.post('/signup', registerValidation, authController.signup)
+router.post('/signup', registerValidation, validationHandler, tryCatchHandler(authController.signup))
 /**
  * @swagger 
  * /api/auth/login:
@@ -38,7 +42,7 @@ router.post('/signup', registerValidation, authController.signup)
 router.get('/login', (req, res) => {
   res.render('login')
 })
-router.post('/login/password', loginValidation, passport.authenticate('local', {
+router.post('/login/password', loginValidation, validationHandler, passport.authenticate('local', {
   successReturnToOrRedirect: '/api/auth/',
   failureRedirect: '/api/auth/login',
   failureMessage: true

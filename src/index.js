@@ -5,13 +5,15 @@ const router = require('./routes/index.router')
 const config = require('./config/config')
 
 
+let server
 async function start() {
     await config(app)
     const port = process.env.PORT || 4000
-    app.listen(port, () => {
+    server = app.listen(port, () => {
         console.log('ok')
     })
     app.use('/api', router)
+    return server
 }
 
-start()
+module.exports = start()

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>RedevStore</title>
+	</head>
+	<body>
+		<section class="prompt">
+			<h1>Customer</h1>
+				<form action="/api/payment/create-checkout-session" method="post">
+					<section>
+						<label for="orderNumber">order number</label>
+						<input id="orderNumber" name="orderNumber" type="text" autocomplete="orderNumber" required autofocus>
+					</section>
+				<section>
+					<label for="amount">amount</label>
+					<input id="amount" name="amount" type="number" autocomplete="amount" required autofocus>
+				</section>
+				<section>
+					<label for="currency">currency</label>
+					<input id="currency" name="currency" type="text" autocomplete="currency" required autofocus>
+				</section>
+				<button type="submit">add</button>
+			</form>
+		</section>
+	</body>
+</html>

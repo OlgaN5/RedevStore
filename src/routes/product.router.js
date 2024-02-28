@@ -9,6 +9,9 @@ const {
     productCreateValidation,
     productEditValidation
 } = require('../utils/validations')
+const validationHandler = require('../utils/validationHandler')
+const tryCatchHandler = require('../controllers/tryCatch.handler')
+
 
 /**
  * @swagger 
@@ -36,7 +39,7 @@ const {
  *                   type: integer
  *                   default: token added
  */
-router.get('/:id', isAuthenticated(['user', 'admin', 'moderator']), idValidation, productController.getProduct)
+router.get('/:id', isAuthenticated(['user', 'admin', 'moderator']), idValidation, validationHandler, tryCatchHandler(productController.getProduct))
 /**
  * @swagger 
  * /api/product/:
@@ -76,7 +79,7 @@ router.get('/:id', isAuthenticated(['user', 'admin', 'moderator']), idValidation
  *                   type: integer
  *                   default: token added
  */
-router.get('/', isAuthenticated(['admin', 'moderator']), productGetFilterValidation, productController.getProducts) // query category/price/availability/sort    категории, цене и наличию на складе.сортировки 
+router.get('/', isAuthenticated(['admin', 'moderator']), productGetFilterValidation, validationHandler, tryCatchHandler(productController.getProducts)) // query category/price/availability/sort    категории, цене и наличию на складе.сортировки 
 /**
  * @swagger 
  * /api/product/add:
@@ -131,7 +134,7 @@ router.get('/', isAuthenticated(['admin', 'moderator']), productGetFilterValidat
  *                   type: integer
  *                   default: token added
  */
-router.post('/add', isAuthenticated(['admin', 'moderator']), productCreateValidation, upload.single('image'), productController.addProduct)
+router.post('/add', isAuthenticated(['admin', 'moderator']), productCreateValidation, validationHandler, upload.single('image'), tryCatchHandler(productController.addProduct))
 /**
  * @swagger 
  * /api/product/edit/{id}:
@@ -184,7 +187,7 @@ router.post('/add', isAuthenticated(['admin', 'moderator']), productCreateValida
  *                   type: integer
  *                   default: token added
  */
-router.patch('/edit/:id', isAuthenticated(['admin', 'moderator']), productEditValidation, upload.single('image'), productController.editProduct)
+router.patch('/edit/:id', isAuthenticated(['admin', 'moderator']), productEditValidation, validationHandler, upload.single('image'), tryCatchHandler(productController.editProduct))
 /**
  * @swagger 
  * /api/product/delete/{id}:
@@ -211,7 +214,7 @@ router.patch('/edit/:id', isAuthenticated(['admin', 'moderator']), productEditVa
  *                   type: integer
  *                   default: token added
  */
-router.delete('/delete/:id', isAuthenticated(['admin', 'moderator']), idValidation, productController.deleteProduct)
+router.delete('/delete/:id', isAuthenticated(['admin', 'moderator']), idValidation, validationHandler, tryCatchHandler(productController.deleteProduct))
 /**
  * @swagger 
  * /api/product/delete/image/{id}:
@@ -238,6 +241,6 @@ router.delete('/delete/:id', isAuthenticated(['admin', 'moderator']), idValidati
  *                   type: integer
  *                   default: token added
  */
-router.delete('/delete/image/:id', isAuthenticated(['admin', 'moderator']), idValidation, productController.deleteImage)
+router.delete('/delete/image/:id', isAuthenticated(['admin', 'moderator']), idValidation, validationHandler, tryCatchHandler(productController.deleteImage))
 
 module.exports = router

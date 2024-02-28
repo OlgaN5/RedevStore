@@ -3,6 +3,10 @@ const {
 } = require('../models/assotiations')
 const dbAccess = require('../database.lib/dbAccess')
 class StatusService {
+    async findStatus(conditions) {
+        const status = await dbAccess.readOne(Status, conditions)
+        return status
+    }
     async createStatus(data) {
         const status = await dbAccess.create(Status, data)
         return status

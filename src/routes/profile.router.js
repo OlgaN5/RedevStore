@@ -8,6 +8,9 @@ const {
     profileCreateModeratorValidation,
     profileEditModeratorValidation
 } = require('../utils/validations')
+const validationHandler = require('../utils/validationHandler')
+const tryCatchHandler = require('../controllers/tryCatch.handler')
+
 /**
  * @swagger 
  * /api/user/profile/create:
@@ -50,7 +53,7 @@ const {
  *                   type: integer
  *                   default: token added
  */
-router.post('/create', isAuthenticated(['user', 'moderator', 'admin']), profileCreateUserValidation, profileController.createProfile)
+router.post('/create', isAuthenticated(['user', 'moderator', 'admin']), profileCreateUserValidation, validationHandler, tryCatchHandler(profileController.createProfile))
 /**
  * @swagger 
  * /api/user/profile/edit:
@@ -93,7 +96,7 @@ router.post('/create', isAuthenticated(['user', 'moderator', 'admin']), profileC
  *                   type: integer
  *                   default: token added
  */
-router.patch('/edit', isAuthenticated(['user', 'moderator', 'admin']), profileEditUserValidation, profileController.editProfile)
+router.patch('/edit', isAuthenticated(['user', 'moderator', 'admin']), profileEditUserValidation, validationHandler, tryCatchHandler(profileController.editProfile))
 /**
  * @swagger 
  * /api/user/profile/create/{id}:
@@ -141,7 +144,7 @@ router.patch('/edit', isAuthenticated(['user', 'moderator', 'admin']), profileEd
  *                   type: integer
  *                   default: token added
  */
-router.post('/create/:id', isAuthenticated(['moderator', 'admin']), profileCreateModeratorValidation, profileController.createProfile)
+router.post('/create/:id', isAuthenticated(['moderator', 'admin']), profileCreateModeratorValidation, validationHandler, tryCatchHandler(profileController.createProfile))
 /**
  * @swagger 
  * /api/user/profile/edit/{id}:
@@ -188,6 +191,6 @@ router.post('/create/:id', isAuthenticated(['moderator', 'admin']), profileCreat
  *                   type: integer
  *                   default: token added
  */
-router.patch('/edit/:id', isAuthenticated(['moderator', 'admin']), profileEditModeratorValidation, profileController.editProfile)
+router.patch('/edit/:id', isAuthenticated(['moderator', 'admin']), profileEditModeratorValidation, validationHandler, tryCatchHandler(profileController.editProfile))
 
 module.exports = router

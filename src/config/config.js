@@ -15,11 +15,17 @@ module.exports = async function (app) {
     // await db.sync({
     //     force: true
     // })
-    app.use('/static', express.static(path.join(__dirname, '..', 'static')))
-    app.use(express.urlencoded({
+    await app.use('/static', express.static(path.join(__dirname, '..', 'static')))
+    await app.use(express.urlencoded({
         extended: true
     }))
     await passportConfig(app)
-    app.use(express.json())
-    app.set('view engine', 'ejs')
+
+    // await app.use(express.raw())
+    await app.use(express.json({
+        verify: function(req, res, buf) {
+            req.rawBody = buf;
+        }
+    }))
+    await app.set('view engine', 'ejs')
 }

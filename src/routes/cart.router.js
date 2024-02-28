@@ -7,6 +7,9 @@ const {
     cartCreateValidation,
     cartEditValidation
 } = require('../utils/validations')
+const validationHandler = require('../utils/validationHandler')
+const tryCatchHandler = require('../controllers/tryCatch.handler')
+
 
 /**
  * @swagger 
@@ -47,7 +50,7 @@ const {
  *                   type: integer
  *                   default: token added
  */
-router.post('/create', isAuthenticated(['user']), cartCreateValidation, cartController.createCart)
+router.post('/create', isAuthenticated(['user']), cartCreateValidation, validationHandler, tryCatchHandler(cartController.createCart))
 /**
  * @swagger 
  * /api/cart/edit/{id}:
@@ -92,7 +95,7 @@ router.post('/create', isAuthenticated(['user']), cartCreateValidation, cartCont
  *                   type: integer
  *                   default: token added
  */
-router.patch('/edit', isAuthenticated(['user']), cartEditValidation, cartController.editCart)
+router.patch('/edit', isAuthenticated(['user']), cartEditValidation, validationHandler, tryCatchHandler(cartController.editCart))
 /**
  * @swagger 
  * /api/cart/delete:
@@ -120,6 +123,6 @@ router.patch('/edit', isAuthenticated(['user']), cartEditValidation, cartControl
  *                   type: integer
  *                   default: token added
  */
-router.delete('/delete', isAuthenticated(['user']), idValidation, cartController.deleteCart)
+router.delete('/delete', isAuthenticated(['user']), idValidation, validationHandler, tryCatchHandler(cartController.deleteCart))
 
 module.exports = router

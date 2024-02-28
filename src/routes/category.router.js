@@ -7,8 +7,13 @@ const {
     categoryCreateValidation,
     cartEditValidation
 } = require('../utils/validations')
-router.get('/get')
-router.get('/getProducts')
+
+
+const validationHandler = require('../utils/validationHandler')
+const tryCatchHandler = require('../controllers/tryCatch.handler')
+
+
+router.get('/get/:id', isAuthenticated(['user', 'admin', 'moderator']), tryCatchHandler(categoryController.getCategory))
 
 /**
  * @swagger 
@@ -48,7 +53,7 @@ router.get('/getProducts')
  *                   type: integer
  *                   default: token added
  */
-router.post('/add', isAuthenticated(['admin', 'moderator']), categoryCreateValidation, categoryController.createCategory)
+router.post('/add', isAuthenticated(['admin', 'moderator']), categoryCreateValidation, validationHandler, tryCatchHandler(categoryController.createCategory))
 /**
  * @swagger 
  * /api/category/edit/{id}:
@@ -90,7 +95,7 @@ router.post('/add', isAuthenticated(['admin', 'moderator']), categoryCreateValid
  *                   default: token added
  */
 
-router.patch('/edit/:id', isAuthenticated(['admin', 'moderator']), cartEditValidation, categoryController.editCategory)
+router.patch('/edit/:id', isAuthenticated(['admin', 'moderator']), cartEditValidation, validationHandler, tryCatchHandler(categoryController.editCategory))
 /**
  * @swagger 
  * /api/category/delete/{id}:
@@ -117,6 +122,6 @@ router.patch('/edit/:id', isAuthenticated(['admin', 'moderator']), cartEditValid
  *                   type: integer
  *                   default: token added
  */
-router.delete('/delete/:id', isAuthenticated(['admin', 'moderator']), idValidation, categoryController.deleteCategory)
+router.delete('/delete/:id', isAuthenticated(['admin', 'moderator']), idValidation, validationHandler, tryCatchHandler(categoryController.deleteCategory))
 
 module.exports = router

@@ -3,6 +3,7 @@ const Sequelize = require('sequelize')
 const User = require('./user.model')
 const Product = require('./product.model')
 const Status = require('./status.model')
+
 module.exports = db.define('order', {
     id: {
         type: Sequelize.INTEGER,
@@ -10,7 +11,11 @@ module.exports = db.define('order', {
         autoIncrement: true,
         primaryKey: true
     },
-    
+    number: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true,
+    },
     productId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -20,7 +25,7 @@ module.exports = db.define('order', {
             key: 'id'
         }
     },
-    count:{
+    count: {
         type: Sequelize.INTEGER,
         allowNull: false,
         unique: false

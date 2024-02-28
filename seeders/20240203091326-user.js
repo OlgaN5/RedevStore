@@ -12,10 +12,10 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     },{
-      login: 'Admin1',
-      email: 'admin1@gmail.com',
+      login: 'User',
+      email: 'user@gmail.com',
       password: await bcrypt.hash('password', 3),
-      role: 'admin',
+      role: 'user',
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});
