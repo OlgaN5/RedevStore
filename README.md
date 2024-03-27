@@ -1,6 +1,56 @@
-**RedevStore**
+# RedevStore
+(eng/rus)
+
+# Contents
+- [In English](#english) 
+- [In Russian](#russian)
 
 </br>
+
+## English  
+
+**Description:**
+
+RedevStore is an online grocery store
+
+</br>
+
+**The main features and functionality** of the project include:
+
+&bull; User registration and authorization
+ 
+&bull; Create a user profile with personal information and order history(can be edit)
+
+&bull; Add products to the database that will be available for purchase
+
+&bull; Realization of product search by various parameters
+
+&bull; Add products to cart and checkout
+
+&bull; Integration with Stripe to pay for orders
+
+&bull; View order history and delivery status
+
+</br>
+
+**Technologies used:** 
+
+    Framework: express
+    Work with databases: sequelize, postgress
+    Authorization and authentication: passportJS, bcript
+    Documentation: swagger 
+    Other: ngrok, multer, express-validator
+
+**The database**
+
+The database schema consists of 9 tables:
+
+![alt text](imageREADME/database.jpg)
+
+</br>
+
+## Russian
+
 **Описание:**
 
 RedevStore - это интернет магазин для продажи продуктов
@@ -35,9 +85,6 @@ RedevStore - это интернет магазин для продажи про
 
 **База данных**
 
-Схема базы данных состоит из 9-nb таблиц: 
+Схема базы данных состоит из 9 таблиц: 
 
 ![alt text](imageREADME/database.jpg)
-
-
-
